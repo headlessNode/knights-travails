@@ -18,7 +18,7 @@ function checkMove(move){
     return 1;
 }
 
-export let alreadyVisited = [];
+let alreadyVisited = [];
 
 function checkAlreadyVisited(move){
     return alreadyVisited.some((visitedNode) => visitedNode.every((val, index) => val === move[index]));

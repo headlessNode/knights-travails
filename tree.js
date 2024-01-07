@@ -1,4 +1,4 @@
-import { alreadyVisited, getPossibleMoves } from "./index.js";
+import { getPossibleMoves } from "./index.js";
 export class Node{
     constructor(data){
         this.data = data;
