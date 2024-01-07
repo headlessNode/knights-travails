@@ -1,20 +1,4 @@
 import {Tree} from "./tree.js";
-const prettyPrint = (node, prefix = "", isFirstChild = true) => {
-    if (node === null) {
-        return;
-    }
-
-    console.log(`${prefix}${isFirstChild ? "└── " : "├── "}${node.data}`);
-    
-    if (node.nextSibling !== null) {
-        prettyPrint(node.nextSibling, prefix, false);
-    }
-
-    if (node.firstChild !== null) {
-        prettyPrint(node.firstChild, `${prefix}${isFirstChild ? "    " : "│   "}`, true);
-    }
-};
-
 
 export function checkInitConditions(start,end){
     for(let i = 0; i<2; i++){
@@ -40,14 +24,10 @@ function checkAlreadyVisited(move){
     return alreadyVisited.some((visitedNode) => visitedNode.every((val, index) => val === move[index]));
 }
 
-export function getPossibleMoves(start, end){
+export function getPossibleMoves(start){
     if(!checkAlreadyVisited(start)){
         alreadyVisited.push(start);
     }
-    // const isEqualToEnd = start.every((currentValue, index)=> currentValue === end[index]);
-    // if(isEqualToEnd){
-    //     return null;
-    // }
     const knightSteps = [[2,1], [2,-1], [-2,1], [-2,-1], [1,2], [-1,2], [1,-2], [-1,-2]];
     let moves = [];
     for(let i=0; i<knightSteps.length; i++){
@@ -56,7 +36,6 @@ export function getPossibleMoves(start, end){
             move.push(start[j] + knightSteps[i][j]);
             
         }
-        //&& !checkAlreadyVisited(move)
         if(checkMove(move) === 1){
             moves.push(move);
             alreadyVisited.push(move);
@@ -75,7 +54,6 @@ export function knightMoves(start, end){
     let treeList = new Tree(start);
     treeList.possibleMovesOfNode(end);
     console.log(treeList);
-    // prettyPrint(treeList.root);
-    treeList.levelOrder();
+    treeList.shortestPath(end);
 }
-knightMoves([3,3], [4,3]);
+knightMoves([0,0], [7,7]);
